@@ -5,6 +5,9 @@ import PerfectHTTPServer
 import MySQLConnectionPool
 import SessionMySQL
 
+let sessionManager:MySQLSession
+
+
 do {
 
 	// Configure MySQL Connetion Pool
@@ -13,14 +16,17 @@ do {
 	cpool.configurePool(initialSize: Settings.pool.initialSize, maxActive: Settings.pool.maxActive, maxIdle: Settings.pool.maxIdle, getTimeout: Settings.pool.getTimeout)
 	
 	// Configure MySQL Session
-	let sessionManager = MySQLSession(cookieName: Settings.session.cookieID, tableName: Settings.session.tableName)
-	sessionManager.setCookieAttributes(secure: false)
+	sessionManager = MySQLSession(cookieName: Settings.session.cookieID, tableName: Settings.session.tableName)
+	//sessionManager.setCookieSecureAttributes(secure: false)
+	sessionManager.secure = false
+	//sessionManager.set
+	//sessionManager.setCookieS
 	
 	// Configure HTTP Server
 
 	let server = HTTPServer()
 	server.addRoutes(getUris())
-	server.serverPort = Settings.server.port
+	server.serverPort = UInt16(Settings.server.port)
 	configureServer(server)
 	
 	try server.start()

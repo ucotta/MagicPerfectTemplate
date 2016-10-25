@@ -38,14 +38,19 @@ public func Indice(_ request: HTTPRequest, response: HTTPResponse) {
 
 	print("peticion: \(p) IP: \(request.uri) \(request.urlVariables)")
 	p += 1
-	//let sesion = sessionManager.start(request, response: response)
-	//var a = Dictionary<String, Any>()
-	//a["hola"] = "adios"
-	//a.removeAll()
-	//a = nil
-
-
 	do {
+
+		let sesion:Session = try sessionManager.start(request, response: response, expiration: .relativeSeconds(15*60))
+		sesion.set("name", value: "perico")
+		try sesion.save(response: response)
+		//var a = Dictionary<String, Any>()
+		//a["hola"] = "adios"
+		//a.removeAll()
+		//a = nil
+		
+		
+
+
 		try f.open(.read)
 
 
@@ -106,6 +111,11 @@ public func PonCookie(_ request: HTTPRequest, response: HTTPResponse) {
 	}
 
 	do {
+
+		let sesion:Session = try sessionManager.start(request, response: response, expiration: .relativeSeconds(15*60))
+		sesion.set("name", value: "perico")
+		try sesion.save(response: response)
+		
 		try f.open(.read)
 
 
