@@ -25,6 +25,7 @@ do {
 	// Configure HTTP Server
 
 	let server = HTTPServer()
+	server.documentRoot = Settings.server.webroot
 	server.addRoutes(getUris())
 	server.serverPort = UInt16(Settings.server.port)
 	configureServer(server)

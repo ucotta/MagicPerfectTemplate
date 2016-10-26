@@ -31,7 +31,7 @@ public func Indice(_ request: HTTPRequest, response: HTTPResponse) {
 
 	//sesion.save(response: response)
 
-	let f = File(getResourcesPath() + "/indice.tmpl")
+	let f = File(Settings.server.webroot + "/index.html")
 	defer {
 		f.close()
 	}
@@ -48,8 +48,9 @@ public func Indice(_ request: HTTPRequest, response: HTTPResponse) {
 		//a.removeAll()
 		//a = nil
 		
-		
 
+		print(Settings.server.webroot + "/index.html")
+		print(f.exists)
 
 		try f.open(.read)
 
