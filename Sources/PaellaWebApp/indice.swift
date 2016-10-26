@@ -112,14 +112,17 @@ public func PonCookie(_ request: HTTPRequest, response: HTTPResponse) {
 
 	do {
 
-		let sesion:Session = try sessionManager.start(request, response: response, expiration: .relativeSeconds(15*60))
-		sesion.set("name", value: "perico")
-		try sesion.save(response: response)
+		let session:Session = try sessionManager.start(request, response: response, expiration: .relativeSeconds(15*60))
+		session.set("name", value: "perico")
+		if let count = session.get("count") as? Int {
+			session.set("count", value: count + 1)
+		} else {
+			session.set("count", value: 0)
+		}
+
+		try session.save(response: response)
 		
 		try f.open(.read)
-
-
-
 		var contents = try f.readString()
 		contents = contents.replacingOccurrences(of: "COOKIES", with: request.cookies.map { "\($0.0): \($0.1)" }.joined(separator: "<br>"))
 		response.appendBody(string: contents)
