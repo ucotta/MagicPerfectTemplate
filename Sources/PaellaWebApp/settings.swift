@@ -29,7 +29,7 @@ public class Settings {
 	
 	public static let server = (
 		port: 8080,
-		webroot: "/Users/ukamata/Fuentes/PaellaPerfectTemplate/webroot"
+		webroot: "./webroot"
 	)
 }
 
